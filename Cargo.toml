@@ -1,0 +1,13 @@
+[package]
+name = "panacea"
+version = "0.1.0"
+description = "Event streaming and processing framework, based around transactional outbox pattern. Ideal for implementing consistent distributed event-driven systems."
+authors = ["Rinat Shaykhutdinov <mail@rinatshay.com>"]
+license = "MIT"
+edition = "2021"
+
+categories = ["web-programming"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
