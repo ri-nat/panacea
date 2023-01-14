@@ -1,14 +1,8 @@
-pub fn hold_a_name(name: String) -> String {
-    format!("Holding a name `{}`", name)
-}
+#[cfg(not(feature = "sqlx"))]
+compile_error!("you should enable one of the `runtime-*` features of `panacea`");
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+#[cfg(feature = "sqlx")]
+pub mod event;
 
-    #[test]
-    fn it_works() {
-        let result = hold_a_name(String::from("panacea"));
-        assert_eq!(result, String::from("Holding a name `panacea`"));
-    }
-}
+#[cfg(feature = "sqlx")]
+pub mod outbox;
