@@ -16,7 +16,7 @@ Panacea is an event streaming and processing framework, based around the transac
 
 > TODO
 
-You can refer to the [examples](./examples) directory for now.
+You can refer to the [examples](./panacea/examples) directory for now.
 
 ### License
 
