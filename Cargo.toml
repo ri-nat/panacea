@@ -1,39 +1,6 @@
-[package]
-name = "panacea"
-version = "0.1.0"
-description = "Event streaming and processing framework, based around transactional outbox pattern. Ideal for building consistent distributed event-driven systems."
-authors = ["Rinat Shaykhutdinov <mail@rinatshay.com>"]
-license = "MIT"
-edition = "2021"
-
-categories = ["web-programming"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-chrono = "0.4.23"
-serde = { version = "1.0.152", features = ["derive"] }
-serde_json = "1.0.91"
-sqlx = { version = "0.6.2", default-features = false, optional = true }
-thiserror = "1.0.38"
-
-[dev-dependencies]
-async-std = "1.12.0"
-panacea = { path = ".", features = ["runtime-async-std-native-tls", "sqlite"] }
-sqlx = { version = "0.6.2", features = ["macros"] }
-
-[features]
-default = []
-mysql = ["sqlx/mysql"]
-postgres = ["sqlx/postgres"]
-sqlite = ["sqlx/sqlite"]
-sqlx = [
-    "sqlx/chrono",
-    "sqlx/macros",
+[workspace]
+members = [
+    "panacea",
+    "panacea-proc-macros",
+    "panacea-types",
 ]
-runtime-async-std-native-tls = ["sqlx", "sqlx/runtime-async-std-native-tls"]
-runtime-async-std-rustls = ["sqlx", "sqlx/runtime-async-std-rustls"]
-runtime-actix-native-tls = ["sqlx", "sqlx/runtime-actix-native-tls"]
-runtime-actix-rustls = ["sqlx", "sqlx/runtime-actix-rustls"]
-runtime-tokio-native-tls = ["sqlx", "sqlx/runtime-tokio-native-tls"]
-runtime-tokio-rustls = ["sqlx", "sqlx/runtime-tokio-rustls"]

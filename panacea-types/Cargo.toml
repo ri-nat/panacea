@@ -1,0 +1,30 @@
+[package]
+name = "panacea-types"
+version = "0.1.0"
+description = "Event streaming and processing framework, based around transactional outbox pattern. Ideal for building eventually consistent distributed event-driven systems."
+authors = ["Rinat Shaykhutdinov <mail@rinatshay.com>"]
+license = "MIT"
+edition = "2021"
+
+categories = ["web-programming"]
+
+[dependencies]
+anyhow = { version = "1.0.68", features = ["backtrace"] }
+async-trait = "0.1.64"
+chrono = "0.4.23"
+serde = { version = "1.0.152", features = ["derive"] }
+serde_json = "1.0.91"
+thiserror = "1.0.38"
+sqlx = { version = "0.6.2", optional = true }
+state = "0.5.3"
+
+[features]
+default = []
+mysql = ["sqlx/mysql"]
+postgres = ["sqlx/postgres"]
+sqlite = ["sqlx/sqlite"]
+sqlx = ["sqlx/chrono", "sqlx/macros"]
+sqlx-runtime-async-std-native-tls = ["sqlx", "sqlx/runtime-async-std-native-tls"]
+sqlx-runtime-async-std-rustls = ["sqlx", "sqlx/runtime-async-std-rustls"]
+sqlx-runtime-tokio-native-tls = ["sqlx", "sqlx/runtime-tokio-native-tls"]
+sqlx-runtime-tokio-rustls = ["sqlx", "sqlx/runtime-tokio-rustls"]

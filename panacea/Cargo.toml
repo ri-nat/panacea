@@ -1,0 +1,71 @@
+[package]
+name = "panacea"
+version = "0.1.0"
+description = "Event streaming and processing framework, based around transactional outbox pattern. Ideal for building eventually consistent distributed event-driven systems."
+authors = ["Rinat Shaykhutdinov <mail@rinatshay.com>"]
+license = "MIT"
+edition = "2021"
+
+categories = ["web-programming"]
+
+[dependencies]
+anyhow = { version = "1.0.68", features = ["backtrace"] }
+async-std = { version = "1.12.0", optional = true }
+async-trait = "0.1.61"
+chrono = "0.4.23"
+ctrlc = { version = "3.2.4", optional = true }
+serde = { version = "1.0.152", features = ["derive"] }
+serde_json = "1.0.91"
+sqlx = { version = "0.6.2", default-features = false, optional = true }
+thiserror = "1.0.38"
+panacea-proc-macros = { path = "../panacea-proc-macros" }
+panacea-types = { path = "../panacea-types" }
+state = "0.5.3"
+
+[dev-dependencies]
+async-std = { version = "1.12.0", features = ["attributes"] }
+ctrlc = "3.2.4"
+panacea = { path = ".", features = ["ctrlc", "outbox", "worker", "sqlx-runtime-async-std-native-tls", "sqlite"] }
+panacea-proc-macros = { path = "../panacea-proc-macros" }
+panacea-types = { path = "../panacea-types" }
+sqlx = { version = "0.6.2", features = ["macros"] }
+
+[features]
+default = []
+outbox = ["dep:async-std"]
+worker = []
+ctrlc = ["dep:ctrlc"]
+mysql = ["sqlx/mysql", "panacea-proc-macros/mysql", "panacea-types/mysql"]
+postgres = ["sqlx/postgres", "panacea-proc-macros/postgres", "panacea-types/postgres"]
+sqlite = ["sqlx/sqlite", "panacea-proc-macros/sqlite", "panacea-types/sqlite"]
+sqlx = ["sqlx/chrono", "sqlx/macros"]
+sqlx-runtime-async-std-native-tls = [
+    "panacea-proc-macros/sqlx-runtime-async-std-native-tls",
+    "panacea-types/sqlx-runtime-async-std-native-tls",
+    "sqlx",
+    "sqlx/runtime-async-std-native-tls"
+]
+sqlx-runtime-async-std-rustls = [
+    "panacea-proc-macros/sqlx-runtime-async-std-rustls",
+    "panacea-types/sqlx-runtime-async-std-rustls",
+    "sqlx",
+    "sqlx/runtime-async-std-rustls"
+]
+sqlx-runtime-tokio-native-tls = [
+    "panacea-proc-macros/sqlx-runtime-tokio-native-tls",
+    "panacea-types/sqlx-runtime-tokio-native-tls",
+    "sqlx",
+    "sqlx/runtime-tokio-native-tls"
+]
+sqlx-runtime-tokio-rustls = [
+    "panacea-proc-macros/sqlx-runtime-tokio-rustls",
+    "panacea-types/sqlx-runtime-tokio-rustls",
+    "sqlx",
+    "sqlx/runtime-tokio-rustls"
+]
+
+[package.metadata.docs.rs]
+features = []
+
+[[example]]
+name = "simple-outbox"
